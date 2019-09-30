@@ -47,7 +47,7 @@ User Stories:
 
 ## DOMAIN MODELLING
 ```
-MEMBER(SHIP)
+MEMBERS
   |
  /|\
 / | \
@@ -58,6 +58,7 @@ RENTAL
 MOVIE
 ```
 ---
+## Tables and Columns
 
 #### MEMBERS:
 * id (integer) 

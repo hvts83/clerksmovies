@@ -1,10 +1,11 @@
 1. Create Seed Data (movies, members)
 2. Create tables (members, rentals, movies)
 
+```
 INSERT into members (name, age, active)
 INSERT into rentals (member_id, movie_id, rental_date, due_date)
 INSERT into movies (title, year, rating, no_of_copies)
-
+```
 ---
 
 ### Members methods:

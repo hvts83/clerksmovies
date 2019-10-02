@@ -1,5 +1,42 @@
 # clerksmovies
 
+Welcome to ClerksBuster
+
+What do you want to do
+1. Search for a movie
+2. View all the movies available
+3. Check your active rentals
+4. Check you membership
+5. Become a new member
+6. Close your membership
+7. Exit
+
+1. Search for a movie
+What movie do you want to rent
+Enter the movie title
+Movies - Available Copies
+2. View all the movies available
+We have all these movies available
+List of movies
+3. Check your active movie rentals
+Enter you membership number or user name
+4. Check your membership
+Enter you membership or username
+5. Become a new member
+Enter your name and birth day
+6. Close your membership
+Delete user
+7. Exit
+Close the program
+
+---
+
+1. Welcome screen/msg
+
+2. Checkout Movie
+
+
+
 ## Minimum Viable Product (MVP)
 
 CREATE:
@@ -35,6 +72,7 @@ DELETE:
 4.	Add graphics - welcome screen/clerks movie reference
 5.	Add sound effects for different actions (rental, denied rentals, late fees, create membership)
 6.  Add rewind (boolean) check
+7.  Add * rating (integer) to movie
 
 User Stories:
 ------------
@@ -75,5 +113,4 @@ MOVIE
 #### MOVIE:
 * id (integer)
 * title (text)
-* rating (integer)
 * copies (integer)

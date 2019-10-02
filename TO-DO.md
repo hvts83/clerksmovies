@@ -4,7 +4,7 @@
 ```
 INSERT into members (name, age, active)
 INSERT into rentals (member_id, movie_id, rental_date, due_date)
-INSERT into movies (title, year, rating, no_of_copies)
+INSERT into movies (title, year, no_of_copies)
 ```
 ---
 

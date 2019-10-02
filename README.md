@@ -3,39 +3,40 @@
 Welcome to ClerksBuster
 
 What do you want to do
-1. Search for a movie
-2. View all the movies available
-3. Check your active rentals
-4. Check you membership
-5. Become a new member
-6. Close your membership
-7. Exit
+1a. Search for a movie
+1b.. View all the movies available
+2a. Check your active rentals
+2b. Check you membership
+2c. Close your membership
+3. Become a new member
+4. Exit
 ---
-1. Search for a movie
+1a. Search for a movie
 * What movie do you want to rent
 * Enter the movie title
 * Movies - Available Copies
 
-2. View all the movies available
+1b. View all the movies available
 * We have all these movies available
 * List of movies
 
-3. Check your active movie rentals
+2a. Check your active movie rentals
 * Enter you membership number or user name
 
-4. Check your membership
+2b. Check your membership
 * Enter you membership or username
 
-5. Become a new member
+2c. Become a new member
 * Enter your name and birth day
 
-6. Close your membership
+3. Close your membership
 * Delete user
 
-7. Exit
+4. Exit
 * Close the program
 
 ---
+
 ```
 
 1. Welcome screen/msg

@@ -4,6 +4,6 @@ class CreateMembersTable < ActiveRecord::Migration[5.2]
       t.string    :name
       t.integer   :age
       t.boolean   :active
+    end
   end
-
 end

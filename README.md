@@ -10,32 +10,71 @@ What do you want to do
 5. Become a new member
 6. Close your membership
 7. Exit
-
+---
 1. Search for a movie
-What movie do you want to rent
-Enter the movie title
-Movies - Available Copies
+* What movie do you want to rent
+* Enter the movie title
+* Movies - Available Copies
+
 2. View all the movies available
-We have all these movies available
-List of movies
+* We have all these movies available
+* List of movies
+
 3. Check your active movie rentals
-Enter you membership number or user name
+* Enter you membership number or user name
+
 4. Check your membership
-Enter you membership or username
+* Enter you membership or username
+
 5. Become a new member
-Enter your name and birth day
+* Enter your name and birth day
+
 6. Close your membership
-Delete user
+* Delete user
+
 7. Exit
-Close the program
+* Close the program
 
 ---
+```
 
 1. Welcome screen/msg
 
 2. Checkout Movie
+    + opens 2nd menu
+        - choice: search by title
+        - choice: view all movies
+    + List results 
+        + show all movies, with quantity
+    + Select one movie with tty prompt
+    + Confirm and user accepts selection
+    + enter account id and name
+    + Create rental instance
+    + Change quantity available
+    + Show receipt (rental-id and due-date)
+    + End / Thank you 
 
+3. New member
+    + enter info
+    + create membership instance
+    + give id number
+    + Welcome to clerkbusters! 
 
+4. Check your membership
+    + Enter name and ID to access
+    + opens 2nd menu
+        + Check movies currently rented by current member (check rental instance belongs to member and not completed/"returned")
+        + Check history of rented movies (check rental instance belongs to member and completed/"returned")
+        + active status
+        + delete membership
+        
+5. Return Movie
+    + Enter rental instance ID
+    + Change the rental instance status to complete
+    + Quantity goes up on inventory
+
+6. Exit!  !!!
+```
 
 ## Minimum Viable Product (MVP)
 

@@ -1,3 +1,5 @@
+require 'pry'
+
 class CliApp
     
     def run
@@ -53,12 +55,7 @@ class CliApp
 
     end
 
-    def print_movies_list
-        Movie.select(:id, :name, :year, :copies).each do |movie_obj|
-          puts "ID: #{movie_obj.id}. Name: #{movie_obj.name}. Year: #{movie_obj.year}. Copies: #{movie_obj.copies}"
-        end
-      end
-
+    
     def new_member # Felix
         prompt = TTY::Prompt.new
         # prompt.ask("Please enter your information below", required: true)
@@ -67,9 +64,9 @@ class CliApp
         puts "Please enter age: "
         age = gets.chomp
         Member.new(id=nil, name, age)
-
+        
     end
-
+    
     def view_all_movies
         # prompt = TTY::Prompt.new
         puts "ClerksBuster has all these amazing movies"
@@ -80,10 +77,26 @@ class CliApp
         # list to prompt/screen
         # tty prompt to choose movie
         # send to checkout after choosing movie
-
+        
     end
-
-    def checkout(movie, member)
+    
+    def print_movies_list
+        # SG = User can change selection
+        #   if no quantity dont show movie
+        choices = Array.new
+        prompt = TTY::Prompt.new
+        movie_hash = {} # Hash.new
+        
+        check_this = Movie.select(:id, :name, :year, :copies).each do |movie_obj|
+            choices << "Name: #{movie_obj.name}. Year: #{movie_obj.year}. Copies: #{movie_obj.copies}"
+            movie_hash["Name: #{movie_obj.name}. Year: #{movie_obj.year}. Copies: #{movie_obj.copies}"] = movie_obj
+        end
+        movie_selection = prompt.select("Select option?", choices.sort)
+        checkout(movie_hash[movie_selection])
+    end
+    
+    
+    def checkout(movie)
         # checkout prompt
         # display chosen movie
         # prompt for member id
@@ -92,9 +105,32 @@ class CliApp
         # decrement quantity
         # due date + 3 days
         # "Thank you for renting #{movie} your movie will be due at #{date}."
+        
+        # prompt = TTY::Prompt.new
+        puts "Thank you for your selection please enter your member credentials: "
+        name = gets.chomp
+        member = Member.select(:id, :name).select do |members|
+            # binding.pry
+            members.name.downcase == name.downcase
+            #     puts "success"
+            # else
+            #     puts "Would you like to become a member? otherwise youll have to watch the last jedi on repeat"
+            # end
+        end
+        attributes = {
+            member_id: member[0].id, 
+            movie_id: movie.id, 
+            rental_date: Date.new, 
+            due_date: Date.new + 3
+        }
+        # binding.pry
+        new_rental = Rental.new(attributes)
+        new_rental.save
+        d = attributes[:due_date]
+        puts "Thank you for renting #{movie.name} your movie will be due at #{d.strftime("%m/%d/%Y")}."
 
     end
-
+    
     def exit(rental=nil)
         if movie==nil
             puts "Thanks for visiting Clerksbuster"
@@ -102,5 +138,5 @@ class CliApp
             puts "Thanks for renting at Clerksbuster!  Please enjoy #{rental.movie.name}!  Your movie is due #{movie.rental} Be kind, rewind!"
         end
     end
-
+    
 end  # end of CliApp

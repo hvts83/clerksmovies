@@ -6,6 +6,8 @@ class CliApp
         case user_selection
         when "Rent a movie"
             rent_movie
+        when "New Member"
+            new_member
         else 
             puts "Not a valid option."
         end
@@ -50,6 +52,17 @@ class CliApp
 
     end
 
+    def new_member # Felix
+        prompt = TTY::Prompt.new
+        # prompt.ask("Please enter your information below", required: true)
+        puts "Please enter name: " 
+        name = gets.chomp
+        puts "Please enter age: "
+        age = gets.chomp
+        Member.new(id=nil, name, age)
+
+    end
+
     def view_all_movies
         # prompt = TTY::Prompt.new
         puts "ClerksBuster has all these amazing movies"
@@ -73,8 +86,6 @@ class CliApp
         # due date + 3 days
         # "Thank you for renting #{movie} your movie will be due at #{date}."
         # thank you, exit
-
-
     end
 
 end  # end of CliApp

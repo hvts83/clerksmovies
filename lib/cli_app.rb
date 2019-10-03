@@ -10,8 +10,12 @@ class CliApp
             rent_movie
         when "New Member"
             new_member
+        when "Check your Membership"
+            check_your_membership
+        when "Return Movie"
+            return_movie
         else 
-            puts "Not a valid option."
+            puts "Kthxbai"
         end
 
     end
@@ -43,6 +47,18 @@ class CliApp
         # binding.pry   
     end
 
+    def check_your_membership
+        puts "please enter your name: "
+        name = gets.chomp
+
+        Member.all.select(:name, :id, :active).each do |members|
+            active = members.active == true ? "Active" : "Inactive"
+            if name.downcase == members.name.downcase
+                puts "\n Name: #{members.name} \n ID: #{members.id} \n Your membership is #{active}."
+            end
+        end
+    end
+
     def search_by_title
         prompt = TTY::Prompt.new
         prompt.ask("Search movie by title: ", required: true)
@@ -63,8 +79,10 @@ class CliApp
         name = gets.chomp
         puts "Please enter age: "
         age = gets.chomp
-        Member.new(id=nil, name, age)
-        
+        # binding.pry
+        newmember = Member.create(name: name, age: age, active: true)
+        newmember.save
+        puts "Welcome to clerksbuster, snootchy bootchies"
     end
     
     def view_all_movies
@@ -120,14 +138,15 @@ class CliApp
         attributes = {
             member_id: member[0].id, 
             movie_id: movie.id, 
-            rental_date: Date.new, 
-            due_date: Date.new + 3
+            rental_date: DateTime.now.to_date, 
+            due_date: DateTime.now.to_date + 3,
+            movie_returned: false
         }
         # binding.pry
         new_rental = Rental.new(attributes)
         new_rental.save
         d = attributes[:due_date]
-        puts "Thank you for renting #{movie.name} your movie will be due at #{d.strftime("%m/%d/%Y")}."
+        puts "Thank you for renting #{movie.name} your movie will be due at #{d}."
 
     end
     

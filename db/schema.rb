@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_213501) do
+ActiveRecord::Schema.define(version: 2019_10_03_183601) do
 
   create_table "members", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_213501) do
     t.integer "movie_id"
     t.datetime "rental_date"
     t.datetime "due_date"
+    t.boolean "movie_returned"
   end
 
 end

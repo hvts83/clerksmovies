@@ -14,7 +14,7 @@ class CliApp
 
 
     def welcome
-        puts "Welcome to Clerkbuster."
+        puts "Welcome to Clerksbuster."
     end
 
     def main_menu_select
@@ -42,6 +42,7 @@ class CliApp
     def search_by_title
         prompt = TTY::Prompt.new
         prompt.ask("Search movie by title: ", required: true)
+        
 
         # give error message "We dont have that movie would you like to choose another title or return
         # to the main menu"
@@ -72,9 +73,15 @@ class CliApp
         # decrement quantity
         # due date + 3 days
         # "Thank you for renting #{movie} your movie will be due at #{date}."
-        # thank you, exit
+        # √ thank you, exit
+    end
 
-
+    def exit(rental=nil)
+        if movie==nil
+            puts "Thanks for visiting Clerksbuster"
+        else
+            puts "Thanks for renting at Clerksbuster!  Please enjoy #{rental.movie.name}!  Your movie is due #{movie.rental} Be kind, rewind!"
+        end
     end
 
 end  # end of CliApp

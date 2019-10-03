@@ -35,7 +35,6 @@ class CliApp
     def rent_movie
         prompt = TTY::Prompt.new
         choices = ["Search by Titles", "View all Movies"]
-        # prompt.select("Select option?", choices)
 
         movie_selection = prompt.select("Select option?", choices)
         case movie_selection
@@ -61,9 +60,25 @@ class CliApp
 
     def search_by_title
         prompt = TTY::Prompt.new
-        prompt.ask("Search movie by title: ", required: true)
-        
+        puts "Search movie by title: "
+        find_movie = gets.chomp
+        if Movie.find_by(name: find_movie)
+            puts "Great we have that in stock"
+        else
+            puts "Sorry we dont have that movie"
+            choices = ["Search for another movie?", "Return to Main Menu"]
 
+            post_search_option = prompt.select("Select option?", choices)
+            case post_search_option
+            when "Search for another movie?"
+                search_by_title
+            when "Return to Main Menu"
+                main_menu_select
+            else
+                puts "Thats not a valid option!"
+        end
+    end
+            
         # give error message "We dont have that movie would you like to choose another title or return
         # to the main menu"
         # select movie
@@ -145,9 +160,20 @@ class CliApp
         # binding.pry
         new_rental = Rental.new(attributes)
         new_rental.save
+        binding.pry
         d = attributes[:due_date]
-        puts "Thank you for renting #{movie.name} your movie will be due at #{d}."
+        puts "Thank you for renting #{movie.name} your movie will be due on #{d}, and your receipt ID is #{new_rental.id}. Please present this ID when returning the movie."
+    end
 
+    def return_movie
+    # Ask for name
+    # ask for name or rental ID
+    puts "please enter your receipt ID: "
+    receipt = gets.chomp
+    binding.pry
+    rental_object = Rental.find(receipt)
+    rental_object.movie_returned = true
+    rental_object.save
     end
     
     def exit(rental=nil)

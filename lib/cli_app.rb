@@ -22,7 +22,18 @@ class CliApp
 
 
     def welcome
-        puts "Welcome to Clerksbuster."
+        puts ""
+        puts ""
+        puts ""
+ puts "        ██████╗██╗     ███████╗██████╗ ██╗  ██╗██████╗ ██╗   ██╗███████╗████████╗███████╗██████╗ "
+ puts "        ██╔════╝██║     ██╔════╝██╔══██╗██║ ██╔╝██╔══██╗██║   ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗"
+ puts "        ██║     ██║     █████╗  ██████╔╝█████╔╝ ██████╔╝██║   ██║███████╗   ██║   █████╗  ██████╔╝"
+ puts "        ██║     ██║     ██╔══╝  ██╔══██╗██╔═██╗ ██╔══██╗██║   ██║╚════██║   ██║   ██╔══╝  ██╔══██╗"
+ puts "        ╚██████╗███████╗███████╗██║  ██║██║  ██╗██████╔╝╚██████╔╝███████║   ██║   ███████╗██║  ██║"
+ puts "         ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ "
+ puts ""
+ puts ""
+        puts "                              Welcome to Clerksbuster."
     end
 
     def main_menu_select
@@ -124,7 +135,7 @@ class CliApp
             choices << "Name: #{movie_obj.name}. Year: #{movie_obj.year}. Copies: #{movie_obj.copies}"
             movie_hash["Name: #{movie_obj.name}. Year: #{movie_obj.year}. Copies: #{movie_obj.copies}"] = movie_obj
         end
-        movie_selection = prompt.select("Select option?", choices.sort)
+        movie_selection = prompt.select("Select option?", choices.sort, per_page: 30)
         checkout(movie_hash[movie_selection])
     end
     

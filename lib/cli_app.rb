@@ -53,6 +53,12 @@ class CliApp
 
     end
 
+    def print_movies_list
+        Movie.select(:id, :name, :year, :copies).each do |movie_obj|
+          puts "ID: #{movie_obj.id}. Name: #{movie_obj.name}. Year: #{movie_obj.year}. Copies: #{movie_obj.copies}"
+        end
+      end
+
     def new_member # Felix
         prompt = TTY::Prompt.new
         # prompt.ask("Please enter your information below", required: true)
@@ -68,7 +74,7 @@ class CliApp
         # prompt = TTY::Prompt.new
         puts "ClerksBuster has all these amazing movies"
         puts "========================================="
-
+        print_movies_list
         # grab all movies
         # alphabetical sort
         # list to prompt/screen

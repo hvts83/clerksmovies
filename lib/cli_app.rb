@@ -54,7 +54,6 @@ class CliApp
         else
             view_all_movies
         end
-        # binding.pry   
     end
 
     def check_your_membership
@@ -87,49 +86,42 @@ class CliApp
                 main_menu_select
             else
                 puts "Thats not a valid option!"
+            end
         end
     end
-            
-        # give error message "We dont have that movie would you like to choose another title or return
-        # to the main menu"
-        # select movie
-        # move to checkout
 
+    def gets_numbers
+        number = gets.chomp
+        if number.to_i > 0
+            return number
+        else
+            puts "Thats not a number guy come on be real"
+            self.gets_numbers
+        end
     end
 
     
-    def new_member # Felix
+    def new_member
         prompt = TTY::Prompt.new
-        # prompt.ask("Please enter your information below", required: true)
         puts "Please enter name: " 
         name = gets.chomp
         puts "Please enter age: "
-        age = gets.chomp
-        # binding.pry
+        age = self.gets_numbers
         newmember = Member.create(name: name, age: age, active: true)
         newmember.save
         puts "Welcome to clerksbuster, snootchy bootchies"
     end
     
     def view_all_movies
-        # prompt = TTY::Prompt.new
         puts "ClerksBuster has all these amazing movies"
         puts "========================================="
         print_movies_list
-        # grab all movies
-        # alphabetical sort
-        # list to prompt/screen
-        # tty prompt to choose movie
-        # send to checkout after choosing movie
-        
     end
     
     def print_movies_list
-        # SG = User can change selection
-        #   if no quantity dont show movie
         choices = Array.new
         prompt = TTY::Prompt.new
-        movie_hash = {} # Hash.new
+        movie_hash = {} 
         
         check_this = Movie.select(:id, :name, :year, :copies).each do |movie_obj|
             choices << "Name: #{movie_obj.name}. Year: #{movie_obj.year}. Copies: #{movie_obj.copies}"
@@ -140,45 +132,45 @@ class CliApp
     end
     
     
-    def checkout(movie)
-        # checkout prompt
-        # display chosen movie
-        # prompt for member id
-        # confirm
-        # create rental instance with member and movie with id's and time stamp
-        # decrement quantity
-        # due date + 3 days
-        # "Thank you for renting #{movie} your movie will be due at #{date}."
-        
-        # prompt = TTY::Prompt.new
-        puts "Thank you for your selection please enter your member credentials: "
-        name = gets.chomp
-        member = Member.select(:id, :name).select do |members|
-            # binding.pry
-            members.name.downcase == name.downcase
-            #     puts "success"
-            # else
-            #     puts "Would you like to become a member? otherwise youll have to watch the last jedi on repeat"
-            # end
+    def checkout(movie)    
+        prompt = TTY::Prompt.new
+        name = prompt.ask("Thank you for your selection please enter your member credentials: ", required: true)
+        if Member.find_by(name: name)
+            member = Member.select(:id, :name).select do |members|
+                members.name.downcase == name.downcase
+            end
+
+            attributes = {
+                member_id: member[0].id, 
+                movie_id: movie.id, 
+                rental_date: DateTime.now.to_date, 
+                due_date: DateTime.now.to_date + 3,
+                movie_returned: false
+            }
+            new_rental = Rental.new(attributes)
+            new_rental.save
+            d = attributes[:due_date]
+            puts "Thank you for renting #{movie.name} your movie will be due on #{d}, and your receipt ID is #{new_rental.id}. Please present this ID when returning the movie."
+        else
+            prompt = TTY::Prompt.new
+            puts "You are not in our database, would you like to "
+            choices = ["Try again", "Create a new membership?", "Return to main menu?"]
+
+            invalid_credentials = prompt.select("Select option?", choices)
+            case invalid_credentials
+            when "Try again"
+                checkout(movie)
+            when "Create a new membership?" 
+                new_member
+            when "Return to main menu?"
+                main_menu_select
+            else
+                puts "Thats not a valid option!"
+            end
         end
-        attributes = {
-            member_id: member[0].id, 
-            movie_id: movie.id, 
-            rental_date: DateTime.now.to_date, 
-            due_date: DateTime.now.to_date + 3,
-            movie_returned: false
-        }
-        # binding.pry
-        new_rental = Rental.new(attributes)
-        new_rental.save
-        binding.pry
-        d = attributes[:due_date]
-        puts "Thank you for renting #{movie.name} your movie will be due on #{d}, and your receipt ID is #{new_rental.id}. Please present this ID when returning the movie."
     end
 
     def return_movie
-    # Ask for name
-    # ask for name or rental ID
     puts "please enter your receipt ID: "
     receipt = gets.chomp
     binding.pry
